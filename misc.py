@@ -68,6 +68,13 @@ def lose(bot, user, *args):
     db.execute("UPDATE category SET Loses = Loses + 1 WHERE Category = ?", dict["Game"])
     react.update_KD_Counter(bot)
 
+
+def pronunciation(bot, user, *args):
+    if len(args) < 1: return
+    if len(" ".join(args)) > 50: return
+    clear_pronunciation = " ".join(args).lower()
+    db.execute("UPDATE users SET pronunciation = ? WHERE UserID = ?", clear_pronunciation, user.id)
+
 def register_hastag(bot, user, hashtag, *args):
     global hashtag_tweet_list
     if len(hashtag) < TWEETMINSIZE: return

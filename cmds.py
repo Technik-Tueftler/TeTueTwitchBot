@@ -21,6 +21,7 @@ class Cmd(object):
 
 cmds = [
     #	misc
+    #Cmd(["pronunciation", "pr"], misc.pronunciation, "misc"),
     Cmd(["delete"], games.stats_delete, "games"),
     Cmd(CMD_OUTPUTTEXT, misc.outputtext, "misc"),
     Cmd(CMD_HONOR, games.honor, "misc"),

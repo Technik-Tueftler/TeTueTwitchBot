@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS users (
 	Badges text DEFAULT "Tueftlie",
 	HenName text,
 	KlugCounter integer DEFAULT 0,
-	EhrenCounter integer DEFAULT 0
+	EhrenCounter integer DEFAULT 0,
+	pronunciation text
 );
 
 CREATE TABLE IF NOT EXISTS category (

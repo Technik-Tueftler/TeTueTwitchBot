@@ -72,6 +72,7 @@ def update_records(bot, user):
         coinlock = (datetime.today()+timedelta(seconds=60)).strftime("%Y-%m-%d %H:%M:%S")
         db.execute("UPDATE users SET Coins = Coins + ?, CoinLock = ? WHERE UserID = ?", randint(1, 5), coinlock, user.id)
 
+
 def welcome(bot, user):
     if user.badge == user_management.Badge.Moderator:
         bot.send_message(f"Willkommen im Stream {user.user_welcome()}. Die Macht ist mit dir!")
@@ -88,17 +89,23 @@ def welcome(bot, user):
             bot.send_message(f'Willkommen im Stream {user.user_welcome()}. {dict_game["welcome"]}. Bitte sei nach­sich­tig mit mir, wenn ich deinen Namen falsch ausspreche.')
         else:
             bot.send_message(f"Willkommen im Stream {user.user_welcome()}. Bitte sei nach­sich­tig mit mir, wenn ich deinen Namen falsch ausspreche.")
+    pronunciation = db.field("SELECT pronunciation FROM users WHERE UserID = ?", user.id)
+    if pronunciation is None: return
+    print(f"Die Aussprache von {user.get_name()} ist {pronunciation}")
+
 
 def say_goodbye(bot, user):
     if user_management.is_user_id_active(user.id) == True:
         bot.send_message(f"Vielen dank {user.get_displayname()}. Bis zum nächsten Mal.")
         user_management.set_user_inactive(user.id)
 
+
 def thank_for_cheer(bot, user, bits):
     if bits != "1":
         bot.send_message(f"Vielen Dank für die {bits} Bits, {user.get_displayname()} <3 <3 <3. Die kommen in den Topf fürs nächste Projekt.")
     else:
         bot.send_message(f"Vielen Dank für den einen Bit, {user.get_displayname()} <3 <3 <3. Der kommt in den Topf fürs nächste Projekt.")
+
 
 def update_bits_records(bot, user, bits):
     debug_temp = 0
